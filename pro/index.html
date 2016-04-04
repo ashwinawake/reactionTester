@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<title>Learning Javascript</title>
+
+ <meta charset="utf-8" />
+ <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<script type="text/javascript" src="js/jquery-1.12.1.min.js"></script>
+<style>
+
+
+#box{
+
+width: 150px;
+height: 200px;
+
+}
+ 
+
+</style>
+</head>
+<body>
+
+<p>You took <span id= "time"></span> seconds to make the box disappear!</p> 
+<p>Best Time:</p>
+<p><span id="color"></span></p>
+<div id="box"></div>
+
+
+ <script type="text/javascript">
+ var clickedTime; var createdTime; var delayTime;
+ 
+ 
+ function randomLocation() {
+ 
+    var top = Math.random();
+    var left = Math.random();
+    top = Math.floor(top*400);
+    left = Math.floor(left*700);
+    
+      $("#box").css({    
+         "margin-top": top+"px",
+         "margin-left": left+"px"   
+    });      
+ }
+ 
+ function randomShapeGenerator(){  
+    if(Math.random()>0.5){    
+       document.getElementById("box").style.borderRadius = "50%";       
+    } else {    
+       document.getElementById("box").style.borderRadius = "0%";     
+    } 
+    randomLocation();
+ }
+ 
+ function getRandomColor() {  
+ 
+ 
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for(var i=0;i<6;i++){    
+       color += letters[Math.round(Math.random()*15)];      
+    }    
+    $("#color").text(color);
+    randomShapeGenerator();
+    
+    return color; 
+ }
+ 
+ function makeBox(){
+ 
+     var time = Math.random();
+     time = time*1500;
+   
+ setTimeout(function(){
+   
+   document.getElementById("box").style.backgroundColor = getRandomColor();
+   document.getElementById("box").style.display = "block";
+   
+   
+   createdTime = Date.now();
+   
+   },time);
+ }
+  
+   document.getElementById("box").onclick = function() { 
+    
+   clickedTime= Date.now();  
+   delayTime = clickedTime - createdTime;
+   $('#time').text(delayTime/1000);
+    
+   document.getElementById("box").style.display = "none";      
+   makeBox();   
+   
+    
+    
+   }
+   
+   
+makeBox();
+   
+   
+
+   
+ </script>
+
+ </body>
+</html>
